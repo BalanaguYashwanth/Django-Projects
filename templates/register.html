@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script>
+        function change() {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    var x = JSON.parse(xmlhttp.responseText);
+                    for( var obj in x )
+                    {
+                       
+                        let option = document.createElement("OPTION");
+                        option.setAttribute("value",x[obj].id);
+                        option.innerHTML=x[obj].pgname+"&nbspin&nbsp"+x[obj].location;
+                        document.getElementById("pgopt").appendChild(option);
+                    }
+
+                }    
+            }
+            xmlhttp.open("GET", "http://127.0.0.1:8000/api/v3/pgdata/", true);
+            xmlhttp.send();
+        }
+    </script>   
+</head>
+
+<body onload="change()">
+    <p id="status"> </p>
+    <form action="register" method="post">
+        {% csrf_token %}
+        <input type="text" name='first_name' placeholder="first name"> <br>
+        <input type="text" name='last_name' placeholder="last name"> <br>
+        <input type="text" name='username' placeholder="username"> <br>
+        <input type="email" name='email' placeholder="email id"> <br>
+        <input type="password" name='password' placeholder="password "> <br>
+        <input type="password" name='password1' placeholder="confirm password"> <br>
+        <select name="pgopt" id="pgopt">
+        </select>
+        <input type="submit">
+    </form>
+
+    <div>
+        {% for message in messages %}
+        <h3> {{message}} </h3>
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

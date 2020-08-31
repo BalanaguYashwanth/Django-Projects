@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+<form action="data" method="POST" >
+{% csrf_token %}
+<p>user : <input type="text" placeholder="enter the user" name="user"></p>
+<p>phonenumber : <input type="number" placeholder="enter the phonenumber" name="phonenumber"></p>
+<button>submit</button>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        function combine()
+        {
+            let maindata={{user.allprofiles.pg_id}}           
+         //  let data =document.getElementById("opt").value;
+          // console.log(data);
+           document.getElementById("message").innerHTML='';
+           document.getElementById("message").innerHTML='Your Updated Messages :- <br>';
+
+          let xmlhttp1 = new XMLHttpRequest();
+          xmlhttp1.onreadystatechange = function()
+          {
+            if(xmlhttp1.readyState==4 && xmlhttp1.status == 200)
+            { 
+             let y = JSON.parse(xmlhttp1.responseText);
+             for(let obj in y)
+             {
+                 if(maindata== y[obj].fid)
+                 {
+                    document.getElementById("message").innerHTML +='<br>'+y[obj].fname+'<br>';
+                    let img=document.createElement('IMG');
+                    img.setAttribute("src",y[obj].picture);
+                    img.setAttribute("height",300);
+                    img.setAttribute("width",300);
+                    document.getElementById("message").appendChild(img);
+                 }
+             }
+            }
+          }
+          xmlhttp1.open("GET","http://127.0.0.1:8000/api/v3/filedata/",true);
+          xmlhttp1.setRequestHeader("X-CSRFToken",  csrfcookie());
+          xmlhttp1.send();
+        }
+
+        var csrfcookie = function() {
+          var cookieValue = null,
+              name = 'csrftoken';
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      };
+
+function total()
+{
+    combine();
+}
+</script>
+</head>
+<body onload="total()">
+    <a href="logout">logout</a>
+    <br>
+    <br>
+
+    <!-- <select id="opt">
+    </select>
+    <button onclick='total()'> Submit  </button> -->
+     <p> 
+         hey 
+        {% if user.is_authenticated %}
+       
+          <mark>  {{user.allprofiles.user}} </mark>  
+        {% endif %}
+         welcome to this pg
+    </p>
+
+    <p id="message"> Pg Messages :- <br> </p>
+
+
+
+
+</body>
+</html>

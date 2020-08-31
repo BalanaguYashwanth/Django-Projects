@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Relations webapge</title>
+    </head>
+    <body>
+        <form action="firstpage" method="POST" >
+        {% csrf_token %} 
+        Pgname:<input name="pgname" placeholder="enter pgname">
+        <br>
+        <br>
+        location:<input name="location" placeholder="enter location">
+        <br>
+        <br>
+        <button>Submit</button>
+        </form>    
+    </body>
+</html>
+

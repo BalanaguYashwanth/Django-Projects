@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pgimages</title>
+</head>
+<body>
+
+    <form action="images" method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <input type="text" id="fname" name="fname"  placeholder="enter your name" > <br>
+        <input type="number" id="fid" name="fid"  placeholder="enter your name" > <br>
+        <input type="file" id="picture"  name="picture"  placeholder="enter the image name"> <br>
+        <button> submit </button>
+    </form>
+    
+</body>
+</html>
+

@@ -1,0 +1,125 @@
+<html>
+<head>
+
+<script type="text/javascript">
+
+function change()
+{
+    xmlhttp= new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()   
+    {   
+        document.getElementById("mydiv").innerHTML="";
+        if(this.readyState==4 && this.status==200)
+        {      
+            var x=JSON.parse(xmlhttp.responseText);
+            for(var obj in x)
+            {
+            ptag=document.createElement("p")
+            ptag.innerHTML+=x[obj].id+"&nbsp"+x[obj].user+"&nbsp"+"&nbsp"+x[obj].phonenumber+"&nbsp";  
+            var div=document.getElementById("mydiv");
+            div.appendChild(ptag);
+
+            b=document.createElement("BUTTON");
+            b.setAttribute("onClick","todo(this.id);");
+            b.setAttribute("id",x[obj].id);
+          
+            t=document.createTextNode("delete");
+            b.appendChild(t);
+            ptag.appendChild(b);
+            }
+        }
+    }
+    xmlhttp.open("GET",'http://127.0.0.1:8000/api/v1/details/',true);
+    xmlhttp.send();
+  
+}
+
+function todo(i)
+{
+    location.reload();
+    Delete(i);
+}
+
+function Delete(i)
+{
+    console.log(i);
+    xmlhttp= new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {   
+        document.getElementById("delete").innerHTML="";
+        if(this.readyState==4 && this.status==200)
+        {      
+            document.getElementById("delete").innerHTML=JSON.parse(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("DELETE",'http://127.0.0.1:8000/api/v1/details/'+i,true);
+    xmlhttp.send();
+  
+}
+
+function post()
+{
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+       // document.getElementById("done").innerHTML=xmlhttp.reponseText;
+    }
+    value={
+        id:1,
+        user:document.getElementById("user").value,
+        phonenumber:document.getElementById("phonenumber").value
+    },
+   
+    //xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.open("POST",'http://127.0.0.1:8000/api/v1/details/',true);
+    xmlhttp.setRequestHeader("Content-type","application/json");
+    xmlhttp.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+    xmlhttp.send(JSON.stringify(value));
+    console.log(JSON.stringify(value));
+}
+
+
+function update()
+{
+    xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        document.getElementById("update").innerHTML=(xmlhttp.responseText);
+    }
+    value={
+        id:44,
+        user:"yash",
+        phonenumber:"9629975138",
+    }
+    xmlhttp.open("UPDATE","http://127.0.0.1:8000/api/v1/details/44/",true);
+    xmlhttp.setRequestHeader("Content-type","application/json");
+    xmlhttp.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+    xmlhttp.send(JSON.stringify(value));
+    console.log(JSON.stringify(value));
+}
+
+
+function todo1()
+{
+    post();
+    location.reload();
+}
+</script>
+
+</head>
+
+<body onload="change()">
+
+<p> user <input type="text" id="user" placeholder="enter your name"> </p>
+<p> phonenumber <input type="number" id="phonenumber"  placeholder="enter the phonenumber"> </p>
+<button onclick="todo1()"> submit </button>
+<br>
+<br>
+<p id="update"> update done </p>
+<button onclick="update()">update pls</button>
+<br>
+<div id="mydiv"> Null Data  </div> 
+ 
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/formsx.css"> 
+</head>
+<body>
+
+<h2>Ways to Explore the Forms</h2>
+<ul>
+{% if user.is_authenticated %}
+<li> Hello,{{user.username}} </li>
+&nbsp;
+<li>  <a href="acccounts/logout"  class="object">Logout</a>  </li>
+{% endif %}
+</ul>
+
+<a href="https://getfertilizeritems.herokuapp.com/contactdatas" class="button button3"><span>Contact Form </span></a>
+<a href="https://getfertilizeritems.herokuapp.com/orderdatas" class="button button1"><span>Order Form </span></a>
+<a href="https://getfertilizeritems.herokuapp.com/imageforms" class="button button2"><span>Image Form </span></a>
+
+
+</html>
+</body>

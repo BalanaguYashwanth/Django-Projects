@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% csrf_token %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="static/style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body onload="loaddata()">  
+
+<nav>
+      <div class="menu-icon">
+        <span class="fas fa-bars"></span>
+      </div>
+    <div class="logo">FertilizerShop</div>
+    <div class="nav-items">
+      <li><a href="#">Home</a></li> 
+      <li><a href="#product3">Orders</a></li>
+      <li><a href="#product1">Contact</a></li>
+    </div>
+
+<div class="search-icon">
+  <span class="fas fa-search"></span>
+</div>
+<div class="cancel-icon">
+  <span class="fas fa-times"></span>
+</div>
+
+</nav>
+
+    <div class="content">
+      <div class="space text">
+     </div>
+</div>
+
+<div class="slideshow-container" id="slidediv">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="static/photos/img_nature_wide.jpg" style="width:100%">
+  <div class="text">Caption Text</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="static/photos/img_snow_wide.jpg" style="width:100%">
+  <div class="text">Caption Two</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="static/photos/img_mountains_wide.jpg" style="width:100%">
+  <div class="text">Caption Three</div>
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center" id="dotdiv">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<div class="product">
+  <h1>Our products</h1>
+  <p> Fertlizers Cement </p>
+</div>
+
+</div>
+
+<div class="row" id="row" > 
+
+  <div class="column"> 
+    <img class="image" src="static/photos/img_mountains_wide.jpg" alt="Mountains" style="width:100%"> 
+  </div>
+  
+   <div class="column">
+   <img class="image" src="static/photos/img_nature_wide.jpg" alt="Nature" style="width:100%">
+  </div>
+
+  <div class="column">
+   <img class="image" src="static/photos/img_snow_wide.jpg" alt="Snow" style="width:100%">
+  </div>
+
+</div>
+
+
+<h2 class="product3" id="product3" >Order Now!!! </h2>
+<p class="product2">We have introduced the new order system just select the data&time and product name then we will prepare for you at that time so you can pick up the product at right time</p>
+
+<form class="form-inline"  method="POST" >
+    {% csrf_token %}
+  <label for="name">Name:</label>
+  <input type="name" id="name" placeholder="Enter your name" name="name" required>
+
+  <label for="item">Item:</label>
+  <input type="name" id="item" placeholder="Enter your item name " name="item" required>
+   
+  <label for="time">Date and Time:</label>
+  <input type="datetime-local" id="time" name="time" required>
+ 
+  <button onclick="orderpost()" type="submit">Submit</button>
+</form>
+
+
+<div class="container">
+  <div class="product1" style="text-align:center"  id="product1">
+    <h2>Contact Us</h2>
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+  </div>
+  <div class="row1">
+    <div class="column1">
+      <img  src="static/photos/img_nature_wide.jpg" style="width:100%">
+    </div>
+    <div class="column1">
+      <form  method="POST">
+        {% csrf_token %}
+        <label for="fname">Name</label>
+        <input type="text" name="person" id="person" placeholder="Enter your name.."  required>
+
+        <label for="lname">Place</label>
+        <input type="text" name="place" id="place" placeholder="Enter your placename..">
+
+        <label for="phone">Phonenumber</label>
+        <input type="tel" name="phone" id="phone" placeholder="Enter your phonenumber | Eg:8555405725" pattern="^[0-9]{10}$" required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Enter your emailaddress" >
+        
+        <input type="submit" id="submit" onclick="contactpost()" value="Submit">
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="static/main.js" > </script>
+</body>
+</html> 
+

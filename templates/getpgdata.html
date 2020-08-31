@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Overview </title>
+    <script>
+
+        function change()
+        {
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function()
+            {
+                if(xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                var person=[];    
+               document.getElementById("sampledata").innerHTML="";
+               var x= JSON.parse(xmlhttp.responseText);
+               
+               for( var obj in x)
+               {
+                document.getElementById("sampledata").innerHTML+=x[obj].name +"<br>";
+                person.push(x[obj]);
+               }
+               change1(person);
+              }
+            }
+            xmlhttp.open("GET","http://127.0.0.1:8000/api/v3/customerdata/",true);
+            xmlhttp.send();
+        }
+
+        function change1(person)
+        {
+         
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange=function()
+            {
+                if(xmlhttp.readyState==4 && xmlhttp.status==200 )
+                {
+                var y=1;
+                var pg=[];
+                document.getElementById("sampledata1").innerHTML="";
+               let x1= JSON.parse(xmlhttp.responseText);
+               for( let obj1 in x1)
+               {
+                document.getElementById("sampledata1").innerHTML+=x1[obj1].pgname+"<br>";
+                pg.push(x1[obj1].pgname);
+                y=y+1;
+                }
+                compare(person,pg);
+              }
+
+            }
+            xmlhttp.open("GET","http://127.0.0.1:8000/api/v3/pgdata/",true);
+            xmlhttp.send();
+
+        }
+
+        function compare(person,pg)
+        {
+            var person1=[];
+            var person2=[];
+
+            for(let x in person)
+            {
+                //document.getElementById('dig1').innerHTML+=person[x];
+                person1.push(person[x].person);
+                person2.push(person[x]);
+                //console.log(person2);
+            }
+
+            document.getElementById("new").innerHTML=person1;
+            document.getElementById("new1").innerHTML=pg;
+            var arr=[];
+            document.getElementById('dig1').innerHTML="";
+            for(var i=0;i<person1.length;i++)
+            {
+                for(var j=0;j<pg.length;j++)
+                {    
+                    
+                    if(person1[i] == (j+1))
+                    {
+                        arr.push(person1[i]);
+
+                        if(arr.length==person2.length)
+                        {
+                        for(var k=0;k<person2.length;k++)
+                        {                   
+                            if(arr[k] == person2[k].person )
+                            {
+                              document.getElementById('dig1').innerHTML+= person2[k].name+"&nbsp &nbsp &nbsp"+pg[person2[k].person-1]+"<br>";
+                              console.log(person2[k].person);
+                            }
+                            
+                        }
+                    }            
+                         break;
+                    }
+                }
+            }
+
+            document.getElementById('arrd').innerHTML="";
+            //console.log(arr);
+
+            for(var k=0;k<arr.length;k++)
+            {
+                if(arr[k] == person[k].person )
+                {
+                   // console.log(person[k].name);
+                }
+            }
+
+
+
+            
+        }
+
+
+
+        function done()
+        {
+            change();
+            change1();
+        }
+    </script>
+</head>
+<body onload="done()">
+    <p id="sampledata">  Sampledata </p> 
+    <p id="sampledata1">  Sampledata </p>
+    <p id="new"> compare data </p>
+    <p id="new1"> compare another data </p>
+    <p id='arrd'> array data </p>
+    <p id="dig1"> dig1 data </p>
+</body>
+</html>
+

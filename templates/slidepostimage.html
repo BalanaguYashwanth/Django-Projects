@@ -1,0 +1,25 @@
+<html>
+<head>
+<link rel="stylesheet"  href="static/fileimagepost.css">
+</head>
+<body>
+<p id="error"></p>
+<h2> Post the Image To Appear in Slide</h2>
+ImageName: <input type="text" id="name"  placeholder="enter the image name"> 
+<p> Upload the Image file below :-</p>
+<input type=file  id="file" >
+<br>
+<br>
+<button onclick="posting()">POST </button>  
+<br>
+<br>
+
+<div id="imagePreview" class="image-preview">
+<img src="" class="image-preview__image" id ="preview" alt=" Image preview" height="200"> 
+<span class="image-preview__default-text">Image Preview</span>
+
+</div>
+
+<script src="static/slideimagepost.js"> </script>
+</body>
+</html>

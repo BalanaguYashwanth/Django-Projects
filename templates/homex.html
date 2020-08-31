@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>homeX</title>
+</head>
+<body>
+
+<form action="data" method="POST">
+{% csrf_token %}
+
+person:<input type="text" name="person" placeholder="enter the person name">
+<br>
+<br>
+zone:<input type="text" name="zone" placeholder="which zone it is">
+<br>
+<br>
+place:<input type="text" name="place" placeholder="enter the nativeplace">
+<br>
+<br>
+<button>Submit</button>
+
+</form>
+
+</body>
+
+</html>
+

@@ -1,0 +1,11 @@
+
+{% block content %}
+
+{%if all %}
+{% for object in all %}
+    user:{{object.user}}
+    phonenumber:{{object.phonenumber}}
+    <br>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members data</title>
+</head>
+<style>
+    #val{
+        visibility: hidden;
+    }
+</style>
+<script>
+    var pgid={{user.userprofile.pg_id}};
+    function change() {
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+                var x = JSON.parse(xmlhttp.responseText);
+                document.getElementById("message").innerHTML = "";
+                for (var obj in x) {
+                    if (x[obj].fid == pgid) {
+                        let ptag =document.createElement('P');
+                        ptag.innerHTML +=+x[obj].fid + "&nbsp &nbsp message :" + x[obj].fname + "<br>"; 
+                        ptag.setAttribute('id',x[obj].id);
+
+                        let del=document.createElement('button');
+                        del.setAttribute("onclick","Delete(this.id)");
+                        del.setAttribute("id",x[obj].id);
+                        del.innerHTML='delete';
+                        ptag.appendChild(del);
+                        let space = document.createElement("BR");
+                        ptag.appendChild(space);
+                        let imgx=document.createElement('IMG');
+                        imgx.setAttribute('src',x[obj].picture);
+                        imgx.setAttribute('width',300);
+                        imgx.setAttribute('height',300);
+                        ptag.appendChild(imgx);
+
+                        document.getElementById("message").appendChild(ptag);
+                        
+                    }
+                }
+            }
+        }
+        xmlhttp.open('GET', 'http://127.0.0.1:8000/api/v3/filedata/', true);
+        xmlhttp.setRequestHeader("X-CSRFToken",  csrfcookie());
+        xmlhttp.send();
+    }
+
+    function posting() {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+
+                document.getElementById(status).innerHTML = JSON.parse(xmlhttp.responseText);
+            }
+        }
+        let data = {
+            message: document.getElementById("go").value,
+            pg: pgid
+        }
+        xmlhttp.open("POST", 'http://127.0.0.1:8000/api/v3/memberdata/', true);
+        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.setRequestHeader("X-CSRFToken",  csrfcookie());
+        console.log(JSON.stringify(data));
+        xmlhttp.send(JSON.stringify(data));
+        location.reload();
+    }
+
+    function Delete(id)
+    {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function(){
+            document.getElementById("status").innerHTML= xmlhttp.responseText;
+        }
+        
+        xmlhttp.open("DELETE","http://127.0.0.1:8000/api/v3/filedata/"+id,true);
+        xmlhttp.setRequestHeader("X-CSRFToken",  csrfcookie());
+        xmlhttp.send();
+        location.reload();
+    }
+
+    var csrfcookie = function() {
+        var cookieValue = null,
+            name = 'csrftoken';
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
+
+
+
+    function done() {
+        change();
+    }   
+</script>
+
+<body onload="done()">
+    <li> <a href="logout" class="object">Logout</a> </li>
+    <p id="status"> status:None </p>
+    
+    {% if user.is_authenticated %}
+
+     hey {{user.userprofile.user1}}
+   
+    {% endif %} 
+    
+    <p> <----------------Owner--View--Below-------------------------> </p>
+
+    <form action="images" method="POST"  enctype='multipart/form-data'>
+        {% csrf_token %}
+    <input id="val" name="fid" value="{{user.userprofile.pg_id}}" >
+    <br>
+    message:<input id="go" name="fname" placeholder="enter the message">
+    <br>
+    <br>
+    image :<input type="file" name="picture" >
+    <br>
+    <br>
+    <button onclick="posting()"> send </button>
+    </form>
+    <div id="message"> sampledata </div>
+    <br>
+   
+
+    <br>
+    <br>
+
+
+
+</body>
+
+</html>
+
+
+
+
+<!-- 
+{% for obj in all  %}
+
+name:{{obj.fname}}
+<br>
+<img src='{{obj.picture.url}}' width="300" height="300" >
+<br>
+<br>
+{% endfor %} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <br>
+    {% if user.is_authenticated %}
+
+    user:{{user.username}}
+
+    {% endif %}
+
+    <br>
+    <br>
+
+    {{pg.user}}
+
+    {{pg.pg_id}}
+
+    {% for obj in all  %}
+
+    name:{{obj.fname}}
+    <br>
+    <img src='{{obj.picture.url}}' width="300" height="300" >
+    <br>
+    <br>
+    {% endfor %}
+
+    <br> -->
+

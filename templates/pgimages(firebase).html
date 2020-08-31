@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+    <script>
+        function change() {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                document.getElementById('status').innerHTML = this.responseText;
+            }
+            data = {
+                fname: document.getElementById('name').value,
+                picture: document.getElementById('image').files[0].name
+            }
+
+            xmlhttp.open("POST", "http://127.0.0.1:8000/api/v3/filedata/", true);
+            console.log(JSON.stringify(data));
+            xmlhttp.send(JSON.stringify(data));
+        }
+    </script>
+
+
+</head>
+<body>
+    <p id="status"> status of the image</p>
+
+    <input type="text" id="name" placeholder="enter the name">
+    <br>
+    <br>
+    <input type="file" id="image">
+    <br>
+    <button onclick="change1()"> submit </button>
+    <br>
+    <br>
+    <img   id="image1" width="300" height="300">
+
+</body>
+
+</html>

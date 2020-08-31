@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register page</title>
+    <script>
+        function change() {
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if(xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                   
+                    var x = JSON.parse(xmlhttp.responseText);
+                    for( var obj in x )
+                    {
+                       
+                        let option = document.createElement("OPTION");
+                        option.setAttribute("value",x[obj].id);
+                        option.innerHTML=x[obj].pgname+"&nbspin&nbsp"+x[obj].location;
+                        document.getElementById("pgopt").appendChild(option);
+                    }
+
+                }    
+            }
+            xmlhttp.open("GET", "http://127.0.0.1:8000/api/v3/pgdata/", true);
+            xmlhttp.send();
+        }
+    </script>   
+
+</head>
+
+<body onload="change()">
+    <form action="register" method="POST">
+        {% csrf_token %}
+        <input type="text" id="fname" name="fname" placeholder="enter the first name ">
+        <br>
+        <input type="text" id="lname" name="lname" placeholder="enter the last name">
+        <br>
+        <input type="text" id="username" name="username" placeholder="enter the username">
+        <br>
+        <input type="email" id="email" name="email" placeholder="enter the email ">
+        <br>
+        <input type="password" id="password" name="password" placeholder="enter the password">
+        <br>
+        <input type="password" id="password1" name="password1" placeholder="enter the password1">
+        <br>
+       
+        <select name="pgopt" id="pgopt">
+        </select>
+        <input type="submit">
+    </form>
+
+    <div>
+        {% for message in messages %}
+        <h3> {{message}} </h3>
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

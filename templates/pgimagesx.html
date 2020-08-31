@@ -1,0 +1,15 @@
+{% block content%}
+{% csrf_token %}
+{% for obj in all  %}
+
+    name:{{obj.fname}}
+    <br>
+    <img src='{{obj.picture.url}}' width="300" height="300" >
+    <br>
+    <br>
+
+{% endfor %}
+
+
+{% endblock %}
+
