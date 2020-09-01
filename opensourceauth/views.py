@@ -37,6 +37,13 @@ class userprofileView(APIView):
         else:
             return Response("error")
 
+class allprofiles(APIView):
+    
+    def get(self,request):
+        model=userprofile.objects.all()
+        serializer=userprofileSerializer(model,many=True)
+        return Response(serializer.data)
+
 
 class mainuserprofile(APIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)

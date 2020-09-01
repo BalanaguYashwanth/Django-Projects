@@ -14,6 +14,8 @@ class userprofile(models.Model):
     charge_per_trip=models.SmallIntegerField()
     category=models.CharField(max_length=100)
     aadhar_number=models.PositiveIntegerField(unique = True)
+    gender=models.CharField(max_length=100)
+    username=models.CharField(max_length=150)
 
 
    
