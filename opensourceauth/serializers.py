@@ -9,6 +9,8 @@ class userprofileSerializer(serializers.ModelSerializer):
         model=userprofile
         fields='__all__'
 
+   
+
 
 
 class registerSerializer(serializers.ModelSerializer):

@@ -20,6 +20,7 @@ from filex.api import *
 from filex import api
 from todo import api1
 from todo.api1 import *
+from opensourceauth.urls import *
 # from todo import api
 # from todo.api import *
 from django.conf import settings
@@ -54,7 +55,7 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     #path('todoauth/',include('todoauth.urls')),
     #url(r'^api/v3/retriveToken/$',api2.retriveToken.as_view(),name="retriveToken"),
-
+    url(r'^userprofile_delete/(?P<id>\d+)/$',userprofileView_one.as_view(),name="userprofile_delete"),
     path('opensourceauth/',include('opensourceauth.urls')),
 
 ]
