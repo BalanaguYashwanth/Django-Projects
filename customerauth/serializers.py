@@ -1,55 +1,51 @@
-from rest_framework import serializers
-from rest_framework import exceptions
+from rest_framework import serializers,exceptions
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate
 from .models import *
 
-class userprofileSerializer(serializers.ModelSerializer):
+class customerprofileSerializer(serializers.ModelSerializer):
     class Meta:
-        model=userprofile
-        fields='__all__'
-
-   
+        model=cutomeruserprofile
+        fields="__all__"
 
 
-
-class registerSerializer(serializers.ModelSerializer):
-    username=serializers.CharField(max_length=150)
-    email=serializers.EmailField(max_length=255,min_length=4)
-    password=serializers.CharField(max_length=150,write_only=True)
+class customerRegisterSerializer(serializers.ModelSerializer):
     first_name=serializers.CharField(max_length=150)
     last_name=serializers.CharField(max_length=150)
-
+    username=serializers.CharField(max_length=150)
+    password=serializers.CharField(max_length=150,write_only=True)
+    email=serializers.EmailField(max_length=255)
 
     class Meta:
         model=User
         fields='__all__'
 
-
     def save(self):
         email=self.validated_data['email']
         if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'email':'email-id is already exists'})
+            raise serializers.ValidationError({'email':'emailid is already exists'})
         else:
             user=User.objects.create(
                 username=self.validated_data['username'],
                 email=self.validated_data['email'],
                 first_name=self.validated_data['first_name'],
-                last_name=self.validated_data['last_name'],
-                )
+                last_name=self.validated_data['last_name']
+            )
             password=self.validated_data['password']
             user.is_active=True
             user.set_password(password)
             user.save()
             return user
 
-class loginSerializer(serializers.ModelSerializer):
+class customerLoginSerializer(serializers.ModelSerializer):
     username=serializers.CharField(max_length=150)
     password=serializers.CharField(max_length=150)
+
 
     class Meta:
         model=User
         fields='__all__'
+
     
     def save(self):
         username=self.validated_data['username']
@@ -61,29 +57,16 @@ class loginSerializer(serializers.ModelSerializer):
                 if user.is_active:
                     return user
                 else:
-                    raise serializers.ValidationError({'user':'user is not active'})
+                    raise serializers.ValidationError({'user':'user is bot active'})
             else:
-                raise serializers.ValidationError({'user':'user is not a valid'})
+                raise serializers.ValidationError({'user':'user is not valid'})
         else:
             raise serializers.ValidationError({'error':'username and password must not be blank'})
-      
-
-
-
-        
-
-
-        
+        return user
 
 
 
 
 
-        
 
-
-
-
-
-    
 

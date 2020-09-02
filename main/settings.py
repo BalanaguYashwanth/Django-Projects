@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # 'acccounts.apps.AcccountsConfig',
     #'projects.apps.ProjectsConfig',
     'opensourceauth.apps.OpensourceauthConfig',
+    'customerauth.apps.CustomerauthConfig',
     'corsheaders',
     'filex.apps.FilexConfig',
     'phonenumber_field',

@@ -57,7 +57,7 @@ urlpatterns = [
     #url(r'^api/v3/retriveToken/$',api2.retriveToken.as_view(),name="retriveToken"),
     url(r'^userprofile_delete/(?P<id>\d+)/$',userprofileView_one.as_view(),name="userprofile_delete"),
     path('opensourceauth/',include('opensourceauth.urls')),
-
+    path('customerauth/',include('customerauth.urls'))
 ]
 
 urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
