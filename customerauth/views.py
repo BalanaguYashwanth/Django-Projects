@@ -91,6 +91,20 @@ class customerlogout(APIView):
 
 
 
+class customerrequestView(APIView):
+
+    def post(self,request):
+        serializer=customerrequestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response('error')
+
+    def get(self,request):
+        model=customerrequest.objects.all()
+        serializer=customerrequestSerializer(model,many=True)
+        return Response(serializer.data)
 
 
 

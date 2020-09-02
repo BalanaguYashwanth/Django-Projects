@@ -8,6 +8,12 @@ class customerprofileSerializer(serializers.ModelSerializer):
         model=cutomeruserprofile
         fields="__all__"
 
+class customerrequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=customerrequest
+        fields='__all__'
+
+
 
 class customerRegisterSerializer(serializers.ModelSerializer):
     first_name=serializers.CharField(max_length=150)

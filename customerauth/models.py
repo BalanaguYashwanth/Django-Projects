@@ -8,4 +8,11 @@ class cutomeruserprofile(models.Model):
     age=models.SmallIntegerField()
     customer_name=models.CharField(max_length=150)
     
-
+class customerrequest(models.Model):
+    name=models.CharField(max_length=150)
+    phonenumber=models.BigIntegerField()
+    startpoint=models.CharField(max_length=150)
+    endpoint=models.CharField(max_length=150)
+    expectedtime=models.CharField(max_length=150)
+    requestshift=models.CharField(max_length=150)
+    requestcategory=models.CharField(max_length=250)
