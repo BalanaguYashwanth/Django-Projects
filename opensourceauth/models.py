@@ -18,8 +18,12 @@ class userprofile(models.Model):
     username=models.CharField(max_length=150)
 
 
-   
-    
+class userbookings(models.Model):
+    driverid=models.SmallIntegerField()
+    driver_name=models.CharField(max_length=150)
+    booked_name=models.CharField(max_length=150)
+    booked_phonenumber=models.BigIntegerField()
+
 
 
 

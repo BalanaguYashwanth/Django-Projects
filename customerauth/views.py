@@ -33,6 +33,17 @@ class customeruserprofileview(APIView):
             return Response(serializer.data)
         else:
             return Response("error")
+
+
+class deletecustomerprofile(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+    def delete(self,request,id):
+        model=cutomeruserprofile.objects.get(id=id)
+        model.delete()
+        return Response("successfully deleted")
+
         
 
 class registercutomerdata(APIView):

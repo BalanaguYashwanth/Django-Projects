@@ -9,7 +9,10 @@ class userprofileSerializer(serializers.ModelSerializer):
         model=userprofile
         fields='__all__'
 
-   
+class userbookingsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model=userbookings
+        fields='__all__'
 
 
 

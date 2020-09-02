@@ -58,7 +58,6 @@ class mainuserprofile(APIView):
 
 
 
-
 class userprofileView_one(APIView):
     
     def delete(self,request,id):
@@ -91,6 +90,22 @@ class logins(APIView):
             token,created=Token.objects.get_or_create(user=user)
             return Response({'token':token.key},status=200)
         return Response('unable to login retry once')
+
+class userbookingsView(APIView):
+
+
+    def get(self,request):
+        model=userbookings.objects.all()
+        serializer=userbookingsSerializers(model,many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        serializer=userbookingsSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response('error')
 
 
 class logout(APIView):
