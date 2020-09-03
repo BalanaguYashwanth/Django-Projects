@@ -23,6 +23,10 @@ class userbookings(models.Model):
     driver_name=models.CharField(max_length=150)
     booked_name=models.CharField(max_length=150)
     booked_phonenumber=models.BigIntegerField()
+    startingpoint=models.CharField(max_length=255)
+    endingpoint=models.CharField(max_length=255)
+    charges=models.SmallIntegerField()
+
 
 
 
