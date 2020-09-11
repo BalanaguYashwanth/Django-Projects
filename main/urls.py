@@ -52,12 +52,16 @@ urlpatterns = [
     # url(r'^api/v3/todo_api/$',api1.todo_api.as_view(),name="todo_api"),
     # url(r'^api/v3/todo_api_one/(?P<id>\d+)/$',api1.todo_api_one.as_view(),name="todo_api_one"),
     # url(r'^api/v3/logoutView/$',api1.logoutView.as_view(),name="logoutView"),
+    
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
+    
     #path('todoauth/',include('todoauth.urls')),
     #url(r'^api/v3/retriveToken/$',api2.retriveToken.as_view(),name="retriveToken"),
+
     url(r'^userprofile_delete/(?P<id>\d+)/$',userprofileView_one.as_view(),name="userprofile_delete"),
     path('opensourceauth/',include('opensourceauth.urls')),
-    path('customerauth/',include('customerauth.urls'))
+    path('customerauth/',include('customerauth.urls')),
+    path('',include('components.urls')),
 ]
 
 urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

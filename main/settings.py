@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'components.apps.ComponentsConfig',
     #'todoauth.apps.TodoauthConfig',
     'todo.apps.TodoConfig',
     # 'allaccounts.apps.AllaccountsConfig',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -100,7 +102,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opensource',
+        'NAME': 'components',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST':'localhost'

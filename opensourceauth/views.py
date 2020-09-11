@@ -80,6 +80,7 @@ class registers(APIView):
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+
 class logins(APIView):
     
     def post(self,request):
@@ -91,8 +92,9 @@ class logins(APIView):
             return Response({'token':token.key},status=200)
         return Response('unable to login retry once')
 
-class userbookingsView(APIView):
 
+
+class userbookingsView(APIView):
 
     def get(self,request):
         model=userbookings.objects.all()
