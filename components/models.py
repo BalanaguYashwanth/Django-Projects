@@ -9,11 +9,14 @@ class component(models.Model):
     title=models.CharField(max_length=150)
     description=models.TextField()
     timestamp=models.DateField(auto_now_add=True)
+    reference_id=models.CharField(max_length=250)
 
 
 class componentEach(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    name=models.CharField(max_length=150)
+    cname=models.CharField(max_length=150)
 
     
-
+class customerdata(models.Model):
+    user_name=models.CharField(max_length=150)
+    reference_number=models.IntegerField(unique=True)

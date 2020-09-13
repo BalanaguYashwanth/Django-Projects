@@ -5,6 +5,7 @@ from .views import *
 router=routers.DefaultRouter()
 router.register('component',componentViewset,basename='component')
 router.register('componentEach',componentEachViewset,basename='componentEach')
+router.register('customerdata',customerdataViewset,basename="customerdata")
 
 urlpatterns=[
     path('api/v5/',include(router.urls)),

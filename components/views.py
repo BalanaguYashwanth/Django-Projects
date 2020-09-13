@@ -14,8 +14,6 @@ from rest_framework.permissions import IsAuthenticated,AllowAny,IsAuthenticatedO
 # Create your views here.
 
 class componentViewset(viewsets.ModelViewSet):
-    
-
     serializer_class=componentSerializer
     queryset=component.objects.all()
 
@@ -31,7 +29,8 @@ class registerprofile(APIView):
         model=User.objects.filter(id=request.user.id)
         serializer=registerSerializer(model,many=True)
         return Response(serializer.data)
-        
+
+
 
 class registerView(APIView):
     
@@ -46,6 +45,11 @@ class registerView(APIView):
             return Response(data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+class customerdataViewset(viewsets.ModelViewSet):
+    serializer_class=customerdataSerializer
+    queryset=customerdata.objects.all()
 
 
 class loginView(APIView):

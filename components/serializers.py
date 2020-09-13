@@ -14,6 +14,12 @@ class componentEachSerializer(serializers.ModelSerializer):
         model=componentEach
         fields="__all__"
 
+class customerdataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=customerdata
+        fields='__all__'
+
+
 class registerSerializer(serializers.ModelSerializer):
     first_name=serializers.CharField(max_length=150)
     last_name=serializers.CharField(max_length=150)
@@ -39,7 +45,7 @@ class registerSerializer(serializers.ModelSerializer):
                 last_name=self.validated_data['last_name'],
                 )
             password=self.validated_data['password']
-            user.is_active=True
+            user.is_active=False
             user.set_password(password)
             user.save()
             return user
@@ -59,10 +65,7 @@ class loginSerializer(serializers.ModelSerializer):
         if username and password:
             user=authenticate(username=username,password=password)
             if user:
-                if user.is_active:
-                    return user
-                else:
-                    raise serializers.ValidationError({'user':'user is not active'})
+                return user
             else:
                 raise serializers.ValidationError({'user':'user is not a valid'})
         else:
