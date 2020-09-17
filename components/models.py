@@ -10,6 +10,7 @@ class component(models.Model):
     description=models.TextField()
     timestamp=models.DateField(auto_now_add=True)
     reference_id=models.CharField(max_length=250)
+    percentage=models.IntegerField(null=True,blank=True)
 
 
 class componentEach(models.Model):
@@ -19,4 +20,4 @@ class componentEach(models.Model):
     
 class customerdata(models.Model):
     user_name=models.CharField(max_length=150)
-    reference_number=models.IntegerField(unique=True)
+    reference_number=models.CharField(max_length=100,unique=True)
