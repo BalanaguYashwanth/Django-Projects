@@ -14,6 +14,8 @@ from rest_framework.permissions import IsAuthenticated,AllowAny,IsAuthenticatedO
 # Create your views here.
 
 class componentViewset(viewsets.ModelViewSet):
+    
+
     serializer_class=componentSerializer
     queryset=component.objects.all()
 

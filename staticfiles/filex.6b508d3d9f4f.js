@@ -18,36 +18,35 @@ function change()
                 var cell3=row.insertCell();
                 var cell4=row.insertCell();
                 var cell5=row.insertCell();
+                var cell6=row.insertCell();
 
                 cell1.innerHTML+=x[obj].id;
-                cell2.innerHTML+=x[obj].name;
-                cell3.innerHTML+=x[obj].item;
-                cell4.innerHTML+=x[obj].time;
-
+                cell2.innerHTML+=x[obj].person;
+                cell3.innerHTML+=x[obj].place;
+                cell4.innerHTML+=x[obj].phone;
+                cell5.innerHTML+=x[obj].email;
+               
                 
                 var btn=document.createElement("button");
                 btn.setAttribute("onclick","todo(this.id)");
                 btn.setAttribute("id",x[obj].id);
                 btn.innerHTML="Delete";
-                cell5.appendChild(btn);
+                cell6.appendChild(btn);
 
-                               
-                 var space=document.createTextNode("  ");
-                 cell5.appendChild(space);
-
-
+                var space=document.createTextNode("  ");
+                cell6.appendChild(space);
 
                 var btn=document.createElement("button");
                 btn.setAttribute("id",x[obj].id);
                 btn.setAttribute("name",obj);
                 btn.setAttribute("onclick","update(this.id,this.name)");
                 btn.innerHTML="Update";
-                cell5.appendChild(btn);
+                cell6.appendChild(btn);
 
             }
         }
     }
-    xmlhttp.open("GET","https://getfertilizeritems.herokuapp.com/api/v1/orderdetailed/",true);
+    xmlhttp.open("GET","https://getfertilizeritems.herokuapp.com/api/v1/detailed/",true);
     xmlhttp.setRequestHeader("X-CSRFToken", csrfcookie());
     xmlhttp.send();
 }
@@ -58,14 +57,15 @@ function todo(id)
     Delete(id);
 }
 
-arraydatas=[];
+
+var arraydata=[];
 
 function update(id,name)
 {
-    if(!arraydatas.includes(id) && arraydatas<1)
+    if(!arraydata.includes(id) && arraydata.length<1)
     {
-    alert("Allow to update the values of id  "+id);
-    arraydatas.push(id);
+    alert("Allow to update the values of id  "+id);  
+    arraydata.push(id); 
     var table=document.getElementById("mytable");
     var row=table.insertRow(parseInt(name)+2);
     var cell1=row.insertCell();
@@ -73,49 +73,59 @@ function update(id,name)
     var cell3=row.insertCell();
     var cell4=row.insertCell();
     var cell5=row.insertCell();
-    
+    var cell6=row.insertCell();
+
     cell1.innerHTML=id;
     cell1.setAttribute("id","id1");
     var input = document.createElement("input");
     input.setAttribute("id","name1");
     cell2.append(input);
+    
     var input = document.createElement("input");
-    input.setAttribute("id","item1");
+    input.setAttribute("id","place1");
     cell3.append(input);
+    
     var input = document.createElement("input");
-    input.setAttribute("type","datetime-local");
-    input.setAttribute("id","time1");
+    input.setAttribute("id","phone1");
     cell4.append(input);
+
+
+    var input = document.createElement("input");
+    input.setAttribute("id","email1");
+    cell5.append(input);
+
+
     var btn1 = document.createElement("button");
     btn1.innerHTML="Submit";
-    btn1.setAttribute('onclick',"put('id1','name1','item1','time1')");
-    cell5.appendChild(btn1);
+    btn1.setAttribute('onclick',"put('id1','name1','place1','phone1','email1')");
+    cell6.appendChild(btn1);
 
     var space=document.createTextNode(" ");
-    cell5.appendChild(space);
+    cell6.appendChild(space);
+
 
     var btn2=document.createElement("button");
     btn2.innerHTML="Cancel";
-    btn2.setAttribute("onclick","cancel("+name+","+id+")");
-    cell5.appendChild(btn2);
-    
-    }
-
+    btn2.setAttribute('onclick',"cancel("+name+","+id+")");
+    cell6.appendChild(btn2);
+   
+ }
 }
 
 function cancel(name,id)
 {
-    var i = arraydatas.indexOf(id);
-    arraydatas.splice(i,1);
+    var i = arraydata.indexOf(id);
+    arraydata.splice(i, 1); 
     document.getElementById("mytable").deleteRow(parseInt(name)+2);
 }
 
-function put(id,name,item,time)
+function put(id,name,place,phone,email)
 {
     var getid=document.getElementById(id).innerHTML;
     var getname = document.getElementById(name).value;
-    var getitem = document.getElementById(item).value;
-    var gettime = document.getElementById(time).value;
+    var getplace = document.getElementById(place).value;
+    var getphone = document.getElementById(phone).value;
+    var getemail = document.getElementById(email).value;
 
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
@@ -124,16 +134,18 @@ function put(id,name,item,time)
         {
             document.getElementById("updating").innerHTML=xmlhttp.reponseText;
         }
+        
     }
 
     var updatedata= {
     "id": getid,
-    "name": getname,
-    "item": getitem,
-    "time": gettime
+    "person": getname,
+    "place": getplace,
+    'phone':getphone,
+    'email':getemail,
     }
 
-    xmlhttp.open("PUT","https://getfertilizeritems.herokuapp.com/api/v1/orderMoredetail/"+getid+"/",true);
+    xmlhttp.open("PUT","https://getfertilizeritems.herokuapp.com/api/v1/Moredetail/"+getid+"/",true);
     xmlhttp.setRequestHeader("Content-type","application/json");
     xmlhttp.setRequestHeader("X-CSRFToken", csrfcookie());
     console.log(JSON.stringify(updatedata));
@@ -150,10 +162,13 @@ function Delete(id)
     xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {
-        document.getElementById("mydelete").innerHTML=xmlhttp.reponseText;
+        if(xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            //document.getElementById("mydelete").innerHTML=JSON.parse(this.reponseText);
+        }
     }
-    xmlhttp.open("DELETE","https://getfertilizeritems.herokuapp.com/api/v1/orderMoredetail/"+id+"/",true);
-    xmlhttp.setRequestHeader("X-CSRFToken", csrfcookie());
+    xmlhttp.open("DELETE","https://getfertilizeritems.herokuapp.com/api/v1/Moredetail/"+id+"/",true);
+    xmlhttp.setRequestHeader("X-CSRFToken",  csrfcookie());
     xmlhttp.send();
     
 }
