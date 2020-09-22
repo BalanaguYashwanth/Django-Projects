@@ -11,6 +11,7 @@ urlpatterns=[
     path('api/v5/',include(router.urls)),
     path('owner/register',registerView.as_view(),name="owner/register"),
     path('owner/login',loginView.as_view(),name="owner/login"),
-    path('owner/registerprofile',registerprofile.as_view(),name='owner/registerprofile')
+    path('owner/logout',logoutView.as_view(),name="owner/logout"),
+    path('owner/registerprofile',registerprofile.as_view(),name='owner/registerprofile'),
 ]
 

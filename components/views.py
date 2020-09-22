@@ -14,8 +14,6 @@ from rest_framework.permissions import IsAuthenticated,AllowAny,IsAuthenticatedO
 # Create your views here.
 
 class componentViewset(viewsets.ModelViewSet):
-    
-
     serializer_class=componentSerializer
     queryset=component.objects.all()
 
@@ -48,6 +46,12 @@ class registerView(APIView):
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+    def get(self,request):
+        model=User.objects.all()
+        serializer=registerSerializer(model,many=True)
+        return Response(serializer.data)
+
+
 
 class customerdataViewset(viewsets.ModelViewSet):
     serializer_class=customerdataSerializer
@@ -65,6 +69,14 @@ class loginView(APIView):
             return Response({'token':token.key},status=200)
         else:
             return Response('unable to login retry once')
+
+class logoutView(APIView):
+
+    def get(self,request):
+        request.user.auth_token.delete()
+        auth.logout(request)
+        return Response("sucessfully logout")
+
 
 
 
