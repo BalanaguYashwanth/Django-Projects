@@ -9,6 +9,11 @@ class componentSerializer(serializers.ModelSerializer):
         model=component
         fields='__all__'
 
+class componentupdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=componentupdate
+        fields='__all__'
+
 class componentEachSerializer(serializers.ModelSerializer):
     class Meta:
         model=componentEach

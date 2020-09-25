@@ -21,15 +21,7 @@ def compress(image):
 
 class component(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    component_name=models.CharField(max_length=150)
-    title=models.CharField(max_length=150)
-    description=models.TextField()
-    timestamp=models.DateField(auto_now_add=True)
-    reference_id=models.CharField(max_length=250)
-    percentage=models.IntegerField(null=True,blank=True)
     image=models.ImageField(upload_to=user_directory_path)
-
-    
 
     def save(self, *args, **kwargs):
             if self.image:
@@ -40,6 +32,28 @@ class component(models.Model):
                     self.image = new_image
                     # save
             super().save(*args, **kwargs)
+
+class componentupdate(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    component_name=models.CharField(max_length=150)
+    
+    customer_name=models.CharField(max_length=150)
+    purchase_order_no=models.CharField(max_length=150)
+    version=models.IntegerField()
+    Date_issued=models.CharField(max_length=150)
+    
+    line_no=models.IntegerField()
+    qty=models.CharField(max_length=150)
+    description=models.TextField()
+    additional_information=models.TextField()
+    unit_weight=models.IntegerField()
+    total_weight=models.IntegerField()
+    unit_price=models.IntegerField()
+    total_price=models.IntegerField()
+    due_date=models.CharField(max_length=150)
+    
+    timestamp=models.DateField(auto_now_add=True)
+    reference_id=models.CharField(max_length=250)
 
 
 

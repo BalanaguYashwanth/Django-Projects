@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #'projects.apps.ProjectsConfig',
     'opensourceauth.apps.OpensourceauthConfig',
     'customerauth.apps.CustomerauthConfig',
+    'django_cleanup',
     'corsheaders',
     'filex.apps.FilexConfig',
     'phonenumber_field',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'storages',
+   
 ]
 
 MIDDLEWARE = [
@@ -174,6 +176,7 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBacke
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
     #    'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.IsAuthenticatedOrReadOnly',
